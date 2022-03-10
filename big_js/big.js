@@ -3,14 +3,18 @@
  *  A small, fast, easy-to-use library for arbitrary-precision decimal arithmetic.
  *  Copyright (c) 2021 Michael Mclaughlin
  *  https://github.com/MikeMcl/big.js/LICENCE.md
+ *  
+ *  æ•´ä½“è¿”å›ä¸€ä¸ªbigå¯¹è±¡
+ *  bigå¯¹è±¡åŒ…å«æœ‰æ•°å­—çš„åŸå§‹ä¿¡æ¯ æ­£è´Ÿ å°æ•°ç‚¹çš„ä½ç½® æ•°å­—é›†åˆ
+ *  bigçš„prototype ç»‘å®šäº† æ•°æ®çš„åŠ å‡ä¹˜é™¤ç­‰æ–¹æ³•
  */
 
 /*
- * ÉùÃ÷Ò»¸öº¯Êı  Á¢¼´Ö´ĞĞ
+ * å£°æ˜ä¸€ä¸ªå‡½æ•°  ç«‹å³æ‰§è¡Œ
  * 
- * ´«Èëthis²ÎÊı ×÷ÎªGLOBAL
+ * ä¼ å…¥thiså‚æ•° ä½œä¸ºGLOBAL
  * 
- * Õû¸öº¯Êı·µ»ØÒ»¸öbig¶ÔÏó
+ * æ•´ä¸ªå‡½æ•°è¿”å›ä¸€ä¸ªbigå¯¹è±¡
   Big = _Big_();
   Big['default'] = Big.Big = Big;
   //AMD.
@@ -101,7 +105,7 @@
   /*
    * Create and return a Big constructor.
    */
-  // ½á¹¹Ìå ·µ»ØBig¶ÔÏó
+  // ç»“æ„ä½“ è¿”å›Bigå¯¹è±¡
   function _Big_() {
 
     /*
@@ -110,7 +114,7 @@
      *
      * n {number|string|Big} A numeric value.
      */
-    // Big º¯Êı Õû¸öjs·µ»ØµÄ¾ÍÊÇÕâ¸öBigº¯Êı
+    // Big å‡½æ•° æ•´ä¸ªjsè¿”å›çš„å°±æ˜¯è¿™ä¸ªBigå‡½æ•°
     function Big(n) {
       var x = this;
 
@@ -128,11 +132,11 @@
             throw TypeError(INVALID + 'number');
           }
 
-          // Èç¹ûÊÇ -0 ×ª»¯Îª'-0' ·ñÔò×ª»¯Îª×Ö·û´®
+          // å¦‚æœæ˜¯ -0 è½¬åŒ–ä¸º'-0' å¦åˆ™è½¬åŒ–ä¸ºå­—ç¬¦ä¸²
           // Minus zero?
           n = n === 0 && 1 / n < 0 ? '-0' : String(n);
         }
-        // ºËĞÄ×ª»»º¯Êı ½«´«½øÀ´µÄÊı¾İ ×ª»¯ÎªBig¶ÔÏó Ö»ÄÜ½ÓÊÕ×Ö·û´®
+        // æ ¸å¿ƒè½¬æ¢å‡½æ•° å°†ä¼ è¿›æ¥çš„æ•°æ® è½¬åŒ–ä¸ºBigå¯¹è±¡ åªèƒ½æ¥æ”¶å­—ç¬¦ä¸²
         parse(x, n);
       }
 
@@ -140,10 +144,10 @@
       // Shadow Big.prototype.constructor which points to Object.
       x.constructor = Big;
     }
-    // ¸øBig°ó¶¨prototype p
-    // pÉÏÃæ°üº¬ÁË ËùÓĞBig¶ÔÏó¿ÉÒÔÖ´ĞĞµÄº¯Êı
+    // ç»™Bigç»‘å®šprototype p
+    // pä¸Šé¢åŒ…å«äº† æ‰€æœ‰Bigå¯¹è±¡å¯ä»¥æ‰§è¡Œçš„å‡½æ•°
     Big.prototype = P;
-    // °ó¶¨ÆäËûÊôĞÔ
+    // ç»‘å®šå…¶ä»–å±æ€§
     Big.DP = DP;
     Big.RM = RM;
     Big.NE = NE;
@@ -153,7 +157,7 @@
     Big.roundHalfUp = 1;
     Big.roundHalfEven = 2;
     Big.roundUp = 3;
-    // ·µ»ØµÄ¾ÍÊÇÉÏÃæÉùÃ÷µÄBigº¯Êı
+    // è¿”å›çš„å°±æ˜¯ä¸Šé¢å£°æ˜çš„Bigå‡½æ•°
     return Big;
   }
 
@@ -164,26 +168,26 @@
    * x {Big} A Big number instance.
    * n {number|string} A numeric value.
    */
-  // ºËĞÄ·½·¨ ½«´«½øÀ´µÄÊı×Ö ·Ö¸î×ª»¯Îª °üº¬s e c ÊôĞÔµÄ¶ÔÏó
-  // c È¥µôĞ¡ÊıµãÖ®ºóµÄ Êı×ÖÊı×é
-  // e Ğ¡Êıµã Î»ÖÃ ËùÔÚµÄË÷Òı
-  // s Õı¸ºÊı
+  // æ ¸å¿ƒæ–¹æ³• å°†ä¼ è¿›æ¥çš„æ•°å­— åˆ†å‰²è½¬åŒ–ä¸º åŒ…å«s e c å±æ€§çš„å¯¹è±¡
+  // c å»æ‰å°æ•°ç‚¹ä¹‹åçš„ æ•°å­—æ•°ç»„
+  // e å°æ•°ç‚¹ ä½ç½® æ‰€åœ¨çš„ç´¢å¼•
+  // s æ­£è´Ÿæ•°
   function parse(x, n) {
     var e, i, nl;
 
     if (!NUMERIC.test(n)) {
       throw Error(INVALID + 'number');
     }
-    // Õı¸ºÊıÅĞ¶Ï
+    // æ­£è´Ÿæ•°åˆ¤æ–­
     // Determine sign.
     x.s = n.charAt(0) == '-' ? (n = n.slice(1), -1) : 1;
-    // Ğ¡ÊıµãÅĞ¶Ï
+    // å°æ•°ç‚¹åˆ¤æ–­
     // Decimal point?
     if ((e = n.indexOf('.')) > -1) n = n.replace('.', '');
-    // ¿ÆÑ§¼ÆÊı·¨ÅĞ¶Ï
+    // ç§‘å­¦è®¡æ•°æ³•åˆ¤æ–­
     // Exponential form?
     if ((i = n.search(/e/i)) > 0) {
-      // È·¶¨Ö¸ÊıµÄÖµ
+      // ç¡®å®šæŒ‡æ•°çš„å€¼
       // Determine exponent.
       if (e < 0) e = i;
       e += +n.slice(i + 1);
@@ -196,21 +200,21 @@
 
     nl = n.length;
 
-    // ÅĞ¶ÏÇ°Ãæ0µÄ¸öÊı
+    // åˆ¤æ–­å‰é¢0çš„ä¸ªæ•°
     // Determine leading zeros.
     for (i = 0; i < nl && n.charAt(i) == '0';) ++i;
-    // È«ÊÇ0
+    // å…¨æ˜¯0
     if (i == nl) {
 
       // Zero.
       x.c = [x.e = 0];
     } else {
-      // ºóÃæÊÇ0 ¾ÍÒ»Ö±--nl 
+      // åé¢æ˜¯0 å°±ä¸€ç›´--nl 
       // Determine trailing zeros.
       for (; nl > 0 && n.charAt(--nl) == '0';);
       x.e = e - i - 1;
       x.c = [];
-      // x.c ´æµÄÊÇÈ¥µôÇ°Ãæ0 ºÍºóÃæ0µÄÖµ
+      // x.c å­˜çš„æ˜¯å»æ‰å‰é¢0 å’Œåé¢0çš„å€¼
       // Convert string to array of digits without leading/trailing zeros.
       for (e = 0; i <= nl;) x.c[e++] = +n.charAt(i++);
     }
